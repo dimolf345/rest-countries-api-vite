@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  background-color: white;
+  padding: 2.4rem 8rem;
+}
+
+.heading {
+  font-weight: 700;
+  font-size: 2.4rem;
+}
+
+button {
+  outline: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 11rem;
+
+  &:hover {
+    border: 1px solid black;
+  }
+}
+
+.light-icon {
+  margin-right: 1rem;
+}
