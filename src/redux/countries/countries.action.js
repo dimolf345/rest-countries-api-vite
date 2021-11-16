@@ -1,4 +1,5 @@
 import CountryActionTypes from "./countries.types";
+import axios from "axios";
 
 const url = "https://restcountries.com/v2/all";
 
@@ -9,13 +10,16 @@ export const countriesFetchStart = () => ({
 //this function will be handled by thunk middleWare
 // if data retrieving is ok, we will dispatch countries
 // fetch success, otherwise failure
-export const countriesFetchStartAsync = (dispatch) => {
+export const countriesFetchStartAsync = () => {
   return (dispatch) => {
-    dispatch(countriesFetchStart);
+    dispatch(countriesFetchStart());
 
     fetch(url, { mode: "cors" })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log("Data fetching success");
+        dispatch(countriesFetchSuccess(data));
+      })
       .catch((error) => dispatch(countriesFetchFailure(error.message)));
   };
 };

@@ -7,9 +7,9 @@ const INITIAL_STATE = {
 };
 
 const countryReducer = (state = INITIAL_STATE, action) => {
-  switch (state.type) {
+  switch (action.type) {
     case CountryActionTypes.COUNTRIES_FETCH_START:
-      console.log("Fetching request sent...Wait");
+      console.log("Starting to fetch");
       return {
         ...state,
         isFetching: true,

@@ -7,7 +7,7 @@ const rootReducer = combineReducers({
   // TODO:
   // -CREATE COUNTRY REDUCER
   theme: themeReducer,
-  countries: countryReducer,
+  api: countryReducer,
 });
 
 export default rootReducer;

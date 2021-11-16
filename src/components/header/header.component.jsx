@@ -3,6 +3,9 @@ import './header.styles.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMoon } from '@fortawesome/free-regular-svg-icons';
 
+import { ButtonContainer, HeaderContainer, HeadingContainer } from './header.styles';
+
+
 import {connect} from 'react-redux'
 import { createStructuredSelector } from 'reselect';
 // import theme selector in order to retrieve the state 
@@ -12,15 +15,19 @@ import { changeTheme } from '../../redux/theme/theme.actions';
  
 
 
-const Header = ({isThemeLight, changeTheme}) => (
-    <div className="header">
-    <h1 className="heading">Where in the world?</h1>
-    <button onClick={changeTheme}>
+const Header = ({isThemeLight, changeTheme}) => {
+    console.log(isThemeLight)
+    return(
+    <HeaderContainer isThemeLight={isThemeLight}>
+    <HeadingContainer isThemeLight={isThemeLight}>
+        Where in the world?
+    </HeadingContainer>
+    <ButtonContainer isThemeLight={isThemeLight} onClick={changeTheme}>
         <FontAwesomeIcon icon={faMoon} size="lg" className="light-icon"/>
         {isThemeLight? 'Dark Mode' : 'Light Mode'}
-    </button>
-    </div>
-)
+    </ButtonContainer>
+    </HeaderContainer>
+)}
 
 
 const mapStateToProps = createStructuredSelector({
