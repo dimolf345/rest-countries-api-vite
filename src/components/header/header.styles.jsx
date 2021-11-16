@@ -7,6 +7,7 @@ export const HeaderContainer = styled.div`
     background-color: ${props => props.isThemeLight? 'white' : 'hsl(209, 23%, 22%)'};
     padding: 2.4rem 8rem;
     transition: all .2s ease;
+    height: 8rem;
 `
 
 
