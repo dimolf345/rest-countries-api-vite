@@ -12,6 +12,7 @@ export const countriesFetchStart = () => ({
 // fetch success, otherwise failure
 export const countriesFetchStartAsync = () => {
   return (dispatch) => {
+    dispatch(countriesFetchFailure(""));
     dispatch(countriesFetchStart());
 
     fetch(url, { mode: "cors" })

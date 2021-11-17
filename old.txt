@@ -1,0 +1,37 @@
+const selectRandomCountries = (countries, numberOfCountriesToSelect) => {
+    if (countries.length <= numberOfCountriesToSelect) return countries
+    console.log('countries are', countries)
+   let result = []
+   let indextaken = new Set();
+   while (result.length < numberOfCountriesToSelect) {
+        let currentIndex = getRandomInt(0, countries.length);
+        if(!indextaken.has(currentIndex)) {
+            indextaken.add(currentIndex)
+            result.push(countries[currentIndex])
+        }
+   }
+   return result
+}
+
+
+const getRandomInt = (min,max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max-min)+ min)
+}
+
+
+const CountryList = ({data}) => {
+    const pickedRandomItems = selectRandomCountries(data, 20);
+    console.log(pickedRandomItems);
+    return (
+        <ul>
+            { pickedRandomItems.map((item)=> <li key={item.alpha3Code}>
+                <p>{item.name}</p>
+                <p>{item.population}</p>
+                <p>{item.region}</p>
+                <p>{item.capital}</p>
+            </li>)}
+        </ul>
+    )
+}

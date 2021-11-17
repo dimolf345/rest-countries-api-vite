@@ -1,35 +1,37 @@
-import React from 'react';
+import React from "react"
+import { Link, Navigate } from "react-router-dom"
 import {connect} from 'react-redux'
-// import countriesFetchStartAsync action to create the
-// dispatch and fetch data
-import {countriesFetchStartAsync} from '../../redux/countries/countries.action';
-import {createStructuredSelector} from 'reselect'
-import CountriesCollection from '../../components/countries-collection/countries-collection.component';
-
-// TODO
-// create an error page to redirect the user if there is 
-// a connection error
-
+import {SetErrorMessage} from '../../redux/errortest/errortest.action'
 
 class HomePage extends React.Component {
-    componentDidMount() {
-        const {countriesFetchStartAsync} = this.props
-        // countriesFetchStartAsync();
+    state= {
+        errorMessage: ''
     }
 
     render() {
-        return (
-            <main>
-            <h1>This is the HomePage component</h1>
-            <CountriesCollection/>
-            </main>
+        const {error, setErrorMessage} = this.props
+        console.log(error)
+        return(
+            <div className="homepage">
+                <h1>HomePage</h1>
+                {error && <Navigate to="/error"/> }
+                <button
+                    onClick={()=> setErrorMessage('porco dio')}
+                >
+                    Set Error Message
+                </button>
+            </div>
         )
     }
 }
 
-
-const mapDispatchToProps = dispatch => ({
-    countriesFetchStartAsync: () => dispatch(countriesFetchStartAsync())
+const mapStateToProps = (state) => ({
+    error: state.test.error
 })
 
-export default connect(null, mapDispatchToProps)(HomePage)
+const mapDispatchToProps = dispatch => ({
+    setErrorMessage: (message)=> dispatch(SetErrorMessage(message))
+})
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(HomePage)
