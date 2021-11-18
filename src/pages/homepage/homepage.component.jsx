@@ -1,22 +1,27 @@
 import React from "react"
 import { Link, Navigate } from "react-router-dom"
 import {connect} from 'react-redux'
+import {countriesFetchStartAsync, countriesFetchFailure} from '../../redux/countries/countries.action';
+import {selectErrorMessage, selectIsFetchingAPI} from '../../redux/countries/countries.selector'
+
 import {SetErrorMessage} from '../../redux/errortest/errortest.action'
+import { createStructuredSelector } from "reselect";
 
 class HomePage extends React.Component {
-    state= {
-        errorMessage: ''
+    componentDidMount(){
+        const {countriesFetchStartAsync} = this.props
+        countriesFetchStartAsync()
     }
 
     render() {
-        const {error, setErrorMessage} = this.props
-        console.log(error)
+        const {errorMessage, countriesFetchFailure, isFetching} = this.props
         return(
             <div className="homepage">
                 <h1>HomePage</h1>
-                {error && <Navigate to="/error"/> }
+                {isFetching && <h1>Fetching data</h1>}
+                {errorMessage && <Navigate to="/error"/>}
                 <button
-                    onClick={()=> setErrorMessage('porco dio')}
+                    onClick={()=> countriesFetchFailure('porco dio')}
                 >
                     Set Error Message
                 </button>
@@ -25,12 +30,13 @@ class HomePage extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    error: state.test.error
+const mapStateToProps = createStructuredSelector({
+    isFetching: selectIsFetchingAPI,
+    errorMessage: selectErrorMessage
 })
 
 const mapDispatchToProps = dispatch => ({
-    setErrorMessage: (message)=> dispatch(SetErrorMessage(message))
+    countriesFetchStartAsync: ()=> dispatch(countriesFetchStartAsync()),
 })
 
 

@@ -1,19 +1,37 @@
-import { Link } from "react-router-dom"
+import React from "react"
+import { Link, useNavigate } from "react-router-dom"
 import { connect } from "react-redux"
-import { ResetError } from "../../redux/errortest/errortest.action"
+import { countriesFetchFailure } from "../../redux/countries/countries.action"
+import { createStructuredSelector } from "reselect"
+import { selectErrorMessage } from "../../redux/countries/countries.selector"
 
-const ErrorPage = ({resetError}) => 
+class ErrorPage extends React.Component {
+    componentDidMount() {
+        this.props.resetError();
+    }
+
+    render() {
+        console.log('rendering error')
+    const {resetError, errorMessage, test} = this.props
+    return (
     <div className="errorpage">
-        <h1>ErrorPage</h1>
-        <Link 
-            onClick={()=> resetError()}
-            to="/">Try again</Link>
-    </div>
+        <h1>Ooops, there is an error: {errorMessage}</h1>
+        <Link to="/">Try again</Link>
+     </div>
+    )
+    }
+}
 
 
-const mapDispatchToProps = dispatch => ({
-    resetError: () => dispatch(ResetError())
+const mapStateToProps = createStructuredSelector({
+    errorMessage: selectErrorMessage
 })
 
 
-export default connect(null,mapDispatchToProps)(ErrorPage)
+
+const mapDispatchToProps = dispatch => ({
+    resetError: () => dispatch(countriesFetchFailure(''))
+})
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(ErrorPage)
