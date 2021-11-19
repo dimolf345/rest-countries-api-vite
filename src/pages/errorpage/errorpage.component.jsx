@@ -10,6 +10,10 @@ class ErrorPage extends React.Component {
         this.props.resetError();
     }
 
+    shouldComponentUpdate() {
+        return false
+    }
+
     render() {
         console.log('rendering error')
     const {resetError, errorMessage, test} = this.props

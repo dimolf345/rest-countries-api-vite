@@ -1,11 +1,12 @@
 import React from "react"
 import { Link, Navigate } from "react-router-dom"
 import {connect} from 'react-redux'
-import {countriesFetchStartAsync, countriesFetchFailure} from '../../redux/countries/countries.action';
-import {selectErrorMessage, selectIsFetchingAPI} from '../../redux/countries/countries.selector'
+import {countriesFetchStartAsync} from '../../redux/countries/countries.action';
+import {selectErrorMessage, selectIsFetchingAPI, selectCountriesCollection} from '../../redux/countries/countries.selector'
 
-import {SetErrorMessage} from '../../redux/errortest/errortest.action'
 import { createStructuredSelector } from "reselect";
+
+import CountriesCollection from "../../components/countries-collection/countries-collection.component";
 
 class HomePage extends React.Component {
     componentDidMount(){
@@ -14,17 +15,13 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const {errorMessage, countriesFetchFailure, isFetching} = this.props
+        const {errorMessage, countries, isFetching} = this.props
         return(
             <div className="homepage">
                 <h1>HomePage</h1>
                 {isFetching && <h1>Fetching data</h1>}
                 {errorMessage && <Navigate to="/error"/>}
-                <button
-                    onClick={()=> countriesFetchFailure('porco dio')}
-                >
-                    Set Error Message
-                </button>
+                <CountriesCollection data={countries}/>
             </div>
         )
     }
@@ -32,7 +29,8 @@ class HomePage extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
     isFetching: selectIsFetchingAPI,
-    errorMessage: selectErrorMessage
+    errorMessage: selectErrorMessage,
+    countries: selectCountriesCollection
 })
 
 const mapDispatchToProps = dispatch => ({
