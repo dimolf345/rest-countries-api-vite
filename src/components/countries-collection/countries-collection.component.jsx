@@ -11,11 +11,16 @@ import {createStructuredSelector} from 'reselect'
 
 
 
-const CountriesCollection = ({data}) => {
+const CountriesCollection = ({data, isSearchInProgress}) => {
+    console.log(isSearchInProgress)
         const [randomCountries, setRandomCountries] = useState([])
         useEffect(() => {
-            setRandomCountries(selectRandomCountries(data, 20))
+            setRandomCountries(selectRandomCountries(data, 20, isSearchInProgress))
         }, [data])
+
+        useEffect(()=> {
+            if(isSearchInProgress) setRandomCountries(data)
+        }, [isSearchInProgress])
 
         return (
         <div className="countries-collection">
@@ -49,7 +54,7 @@ const CountriesCollection = ({data}) => {
 
 
 
-const selectRandomCountries = (countries, numberOfCountriesToSelect) => {
+const selectRandomCountries = (countries, numberOfCountriesToSelect=countries.length) => {
     if (countries.length <= numberOfCountriesToSelect) return countries
    let result = []
    let indextaken = new Set();

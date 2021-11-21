@@ -13,7 +13,8 @@ class HomePage extends React.Component {
         super(props)
         this.state= {
             searchInput: '',
-            regionFilter : ''
+            regionFilter : '',
+            isSearchInProgress: false
         }
         this.handleChange = this.handleChange.bind(this)
     }
@@ -25,19 +26,54 @@ class HomePage extends React.Component {
 
     handleChange = (e) => {
         this.setState({
-            searchInput: e.target.value
+            [e.target.name]: e.target.value
+        })
+        if(this.isSearchInProgress) this.setState({
+            isSearchInProgress: true
         })
     }
+
+
+    filterCountriesBySearch = (countries) => {
+        return this.state.searchInput
+        ? countries.filter(country => country.name.toLowerCase().includes(this.state.searchInput.toLowerCase()))
+        : countries
+    }
+
+
+    filterCountriesByRegion = (countries) => {
+        return this.state.regionFilter
+        ? countries.filter(country => country.region === this.state.regionFilter)
+        : countries
+    }
+
+
+    isSearchInProgress = () => {
+        return this.state.searchInput!== '' || this.state.regionFilter !== ''
+    }
+
 
     render() {
         const {errorMessage, countries, isFetching} = this.props
         return(
             <div className="homepage">
-                <input type="text" value={this.state.searchInput} onChange={this.handleChange}/>
+                <input 
+                name="searchInput"
+                type="search" value={this.state.searchInput} onChange={this.handleChange}/>
+                <select onChange={this.handleChange} name="regionFilter" id="">
+                    <option value="">Filter by Region</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Americas">America</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Oceania">Oceania</option>
+                </select>
                 <h1>HomePage</h1>
                 {isFetching && <h1>Fetching data</h1>}
                 {errorMessage && <Navigate to="/error"/>}
-                <CountriesCollection data={countries}/>
+                <CountriesCollection 
+                    isSearchInProgress = {this.state.isSearchInProgress}
+                    data={this.filterCountriesBySearch(this.filterCountriesByRegion(countries))}/>
             </div>
         )
     }
