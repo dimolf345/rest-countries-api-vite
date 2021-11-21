@@ -9,15 +9,31 @@ import { createStructuredSelector } from "reselect";
 import CountriesCollection from "../../components/countries-collection/countries-collection.component";
 
 class HomePage extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state= {
+            searchInput: '',
+            regionFilter : ''
+        }
+        this.handleChange = this.handleChange.bind(this)
+    }
+
     componentDidMount(){
         const {countriesFetchStartAsync} = this.props
         countriesFetchStartAsync()
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            searchInput: e.target.value
+        })
     }
 
     render() {
         const {errorMessage, countries, isFetching} = this.props
         return(
             <div className="homepage">
+                <input type="text" value={this.state.searchInput} onChange={this.handleChange}/>
                 <h1>HomePage</h1>
                 {isFetching && <h1>Fetching data</h1>}
                 {errorMessage && <Navigate to="/error"/>}

@@ -1,5 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './countries-collection.styles.scss'
+import {connect} from 'react-redux'
+import { selectCountriesCollection } from '../../redux/countries/countries.selector'
+import {createStructuredSelector} from 'reselect'
 
 
 
@@ -9,7 +12,11 @@ import './countries-collection.styles.scss'
 
 
 const CountriesCollection = ({data}) => {
-        const [randomCountries, setRandomCountries] = useState(selectRandomCountries(data, 20))
+        const [randomCountries, setRandomCountries] = useState([])
+        useEffect(() => {
+            setRandomCountries(selectRandomCountries(data, 20))
+        }, [data])
+
         return (
         <div className="countries-collection">
         <div className="countries">
@@ -44,7 +51,6 @@ const CountriesCollection = ({data}) => {
 
 const selectRandomCountries = (countries, numberOfCountriesToSelect) => {
     if (countries.length <= numberOfCountriesToSelect) return countries
-    console.log('countries are', countries)
    let result = []
    let indextaken = new Set();
    while (result.length < numberOfCountriesToSelect) {
@@ -64,16 +70,15 @@ const getRandomInt = (min,max) => {
     return Math.floor(Math.random() * (max-min)+ min)
 }
 
-const formatPopulation = (number) => {
-    return number.toLocaleString()
-}
+
+
+const mapStateToProps = createStructuredSelector({
+    countries: selectCountriesCollection
+})
 
 
 
 
 
 
-
-
-
-export default CountriesCollection
+export default connect(mapStateToProps)(CountriesCollection)
