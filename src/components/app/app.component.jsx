@@ -23,7 +23,7 @@ class App extends React.Component {
 
         <Route path="/error" element={<ErrorPage/>}/>
         <Route path="/" element={<HomePage/>}/>
-        <Route path="/countries/" element={<CountryPage/>}/>
+        <Route path="/countries/:countryId" element={<CountryPage/>}/>
         <Route path="*" element={<NotFound/>}/>
       </Routes>
     </BackgroundWrapper>

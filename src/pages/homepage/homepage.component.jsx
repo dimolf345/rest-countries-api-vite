@@ -8,6 +8,10 @@ import { createStructuredSelector } from "reselect";
 
 import CountriesCollection from "../../components/countries-collection/countries-collection.component";
 
+import FiltersForm from "../../components/filters-form/filters-form.component";
+import Spinner from "../../components/spinner/spinner.component";
+
+
 class HomePage extends React.Component {
     constructor(props) {
         super(props)
@@ -56,20 +60,9 @@ class HomePage extends React.Component {
     render() {
         const {errorMessage, countries, isFetching} = this.props
         return(
-            <div className="homepage">
-                <input 
-                name="searchInput"
-                type="search" value={this.state.searchInput} onChange={this.handleChange}/>
-                <select onChange={this.handleChange} name="regionFilter" id="">
-                    <option value="">Filter by Region</option>
-                    <option value="Africa">Africa</option>
-                    <option value="Americas">America</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Europe">Europe</option>
-                    <option value="Oceania">Oceania</option>
-                </select>
-                <h1>HomePage</h1>
-                {isFetching && <h1>Fetching data</h1>}
+            <div style={{position: 'relative'}} className="homepage">
+                <FiltersForm  searchInput={this.state.searchInput} handleChange={this.handleChange}   />                <h1>HomePage</h1>
+                {isFetching &&  <Spinner />}
                 {errorMessage && <Navigate to="/error"/>}
                 <CountriesCollection 
                     isSearchInProgress = {this.state.isSearchInProgress}

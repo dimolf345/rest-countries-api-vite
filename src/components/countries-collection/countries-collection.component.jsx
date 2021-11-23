@@ -3,6 +3,10 @@ import './countries-collection.styles.scss'
 import {connect} from 'react-redux'
 import { selectCountriesCollection } from '../../redux/countries/countries.selector'
 import {createStructuredSelector} from 'reselect'
+import {Link, Outlet} from 'react-router-dom'
+import CountryCard from '../country-card/country-card.component'
+
+import Spinner from '../spinner/spinner.component'
 
 
 
@@ -12,10 +16,9 @@ import {createStructuredSelector} from 'reselect'
 
 
 const CountriesCollection = ({data, isSearchInProgress}) => {
-    console.log(isSearchInProgress)
         const [randomCountries, setRandomCountries] = useState([])
         useEffect(() => {
-            setRandomCountries(selectRandomCountries(data, 20, isSearchInProgress))
+            setRandomCountries(selectRandomCountries(data, 2, isSearchInProgress))
         }, [data])
 
         useEffect(()=> {
@@ -27,13 +30,24 @@ const CountriesCollection = ({data, isSearchInProgress}) => {
         <div className="countries">
             {randomCountries.map((country)=>(
                <div key={country.alpha3Code} className="country">
-                <div className="country-img"></div>
+                    <Link 
+                    key={country.alpha3Code}
+                    country={country}
+                    to={`/countries/${country.alpha3Code}`} >
+                        <div className="country-img">
+                            <img 
+                            className="img"
+                            src={country.flag} alt="" />
+                        </div>
+                    </Link>
+                    <Outlet/>
                 <div className="country-details">
                     <h2 className="country-name">{country.name}</h2>
                     <p className="country-detail">Population: <span>{country.population.toLocaleString()} abitants</span></p>
                     <p className="country-detail">Region: <span>{country.region}</span></p>
                     <p className="country-detail">Capital: <span>{country.capital}</span></p>
                </div> 
+
             </div>
             ))}
             </div>
