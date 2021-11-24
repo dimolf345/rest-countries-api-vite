@@ -4,8 +4,8 @@
 
 .countries {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(26.4rem, 1fr));
-  gap: 7rem;
+  grid-template-columns: repeat(auto-fit, 26.4rem);
+  gap: 7.4rem;
   width: 100%;
 }
 

@@ -24,8 +24,8 @@ class HomePage extends React.Component {
     }
 
     componentDidMount(){
-        const {countriesFetchStartAsync} = this.props
-        countriesFetchStartAsync()
+        const {countriesFetchStartAsync, countries} = this.props
+        if(countries.length===0) countriesFetchStartAsync()
     }
 
     handleChange = (e) => {
