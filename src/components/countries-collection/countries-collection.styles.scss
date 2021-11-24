@@ -9,36 +9,6 @@
   width: 100%;
 }
 
-.country {
-  border: 1px solid black;
-  border-radius: 5px;
-  height: 33.6rem;
-}
-
-.country-img {
-  min-height: 16rem;
-
-  .img {
-    display: block;
-    width: 100%;
-  }
-}
-
-.country-details {
-  padding: 2.4rem;
-}
-
-.country-name {
-  margin-bottom: 1.6rem;
-}
-
-.country-detail {
-  font-weight: bold;
-  span {
-    font-weight: 300;
-  }
-}
-
 button {
   margin: 3rem auto;
   display: block;
