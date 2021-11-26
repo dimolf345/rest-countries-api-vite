@@ -1,22 +1,36 @@
 import './filters-form.styles.scss'
+import {GoSearch} from 'react-icons/go'
+import { FormWrapper, SearchInput } from './filters-form.styles';
+import CustomDropdown from '../dropdown/dropdown.jsx';
+import {connect} from 'react-redux'
+import { createStructuredSelector } from 'reselect';
+import { selectSearch } from '../../redux/filters/filters.selector';
+import { searchCountry } from '../../redux/filters/filters.action';
 
-const FiltersForm = ({handleChange, searchInput}) => {
+const FiltersForm = ({inputSearch, handleInputChange}) => {
     return (
-        <div className="filters-form">
-            <input 
+        <FormWrapper>
+            <div className="input-wrapper">
+            <GoSearch className="search-icon" size={'1.8em'}/>
+            <SearchInput 
+                placeholder="Search for a country..."
+                className="search-input"
                 name="searchInput"
-                type="search" value={searchInput} onChange={handleChange}/>
-            <select onChange={handleChange} name="regionFilter" id="">
-                    <option value="">Filter by Region</option>
-                    <option value="Africa">Africa</option>
-                    <option value="Americas">America</option>
-                    <option value="Asia">Asia</option>
-                    <option value="Europe">Europe</option>
-                    <option value="Oceania">Oceania</option>
-         </select>
-        </div>
+                type="search" 
+                onChange={(e)=> handleInputChange(e.target.value)}/>
+            </div>
+            <CustomDropdown/>
+        </FormWrapper>
     )
 }
 
+const mapStateToProps = createStructuredSelector({
+    inputSearch: selectSearch,
+})
 
-export default FiltersForm
+const mapDispatchToProps = dispatch => ({
+    handleInputChange : (search) => dispatch(searchCountry(search))
+}) 
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(FiltersForm)

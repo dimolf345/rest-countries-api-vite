@@ -1,8 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import './countries-collection.styles.scss'
-import {connect} from 'react-redux'
-import { selectCountriesCollection } from '../../redux/countries/countries.selector'
-import {createStructuredSelector} from 'reselect'
 import CountryCard from '../country-card/country-card.component';
 
 
@@ -12,7 +9,7 @@ import CountryCard from '../country-card/country-card.component';
 const CountriesCollection = ({data, isSearchInProgress}) => {
         const [randomCountries, setRandomCountries] = useState([])
         useEffect(() => {
-            setRandomCountries(selectRandomCountries(data, 2, isSearchInProgress))
+            setRandomCountries(selectRandomCountries(data, 20, isSearchInProgress))
         }, [data])
 
         useEffect(()=> {
@@ -63,17 +60,7 @@ const getRandomInt = (min,max) => {
 }
 
 
-
-const mapStateToProps = createStructuredSelector({
-    countries: selectCountriesCollection
-})
-
-
-
-
-
-
-export default connect(mapStateToProps)(CountriesCollection)
+export default CountriesCollection
 
 
 

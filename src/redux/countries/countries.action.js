@@ -1,5 +1,4 @@
 import CountryActionTypes from "./countries.types";
-import axios from "axios";
 
 const url = "https://restcountries.com/v2/all";
 
