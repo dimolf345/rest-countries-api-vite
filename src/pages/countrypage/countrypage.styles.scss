@@ -1,0 +1,21 @@
+.country {
+  display: flex;
+  flex-direction: row;
+
+  & > * {
+    border: 1px solid red;
+  }
+}
+
+.img-container {
+  width: 50%;
+
+  .img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.details-container {
+  width: 50%;
+}

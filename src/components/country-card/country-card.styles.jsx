@@ -41,7 +41,7 @@ export const WrapperLink = styled(Link)`
 export const CountryDetailsContainer = styled.div`
 height: 100%;
 
-    padding: 2.4rem;
+    padding: 2.4rem 2.4rem 0 2.4rem;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 `
@@ -49,7 +49,8 @@ height: 100%;
 
 export const CountryHeading = styled.h2`
     font-size: 1.8rem;
-    margin-bottom: 1.6rem;
+    margin: 0.5rem 0;
+    line-height: 1.2;
 
 `
 

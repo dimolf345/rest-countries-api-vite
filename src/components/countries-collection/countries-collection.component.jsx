@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import './countries-collection.styles.scss'
+import {CountryCollectionContainer, CountryButtonContainer} from './countries-collection.styles';
+import ThemeButton from '../button/button.component';
 import CountryCard from '../country-card/country-card.component';
 
 
@@ -17,11 +18,13 @@ const CountriesCollection = ({data, isSearchInProgress}) => {
         }, [isSearchInProgress])
 
         return (
-        <div className="countries-collection">
-        <div className="countries">
+            <>
+          <CountryCollectionContainer>
             {randomCountries.map((country)=> <CountryCard key={country.alpha3Code} country={country}_/>)}
-            </div>
-            <button onClick={()=>{
+            </CountryCollectionContainer>
+            <CountryButtonContainer>
+            <ThemeButton 
+                handleClick={()=>{
                 randomCountries.length===data.length
                 ?setRandomCountries(selectRandomCountries(data, 20))
                 : setRandomCountries(data)}}> 
@@ -29,8 +32,9 @@ const CountriesCollection = ({data, isSearchInProgress}) => {
                 randomCountries.length===data.length
                 ? "Show less"
                 : `Show all ${data.length} countries`
-            }</button>
-        </div>
+            }</ThemeButton>
+            </CountryButtonContainer>
+            </>
         )
 }
 

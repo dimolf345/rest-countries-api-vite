@@ -3,11 +3,10 @@ import styled from "styled-components";
 
 export const DropdownWrapper = styled.div`
  .Dropdown-root {
-   width: 20rem;
+  width: 20rem;
   position: relative;
   color: ${props=> props.isThemeLight? 'hsl(200, 15%, 8%)' : 'hsl(0, 0%, 100%)'};
-  box-shadow: 0 0 3px rgba(0,0,0,0.1)
- 
+  box-shadow: 0 0 3px rgba(0,0,0,0.1) 
 }
 
 .Dropdown-control {
@@ -20,6 +19,8 @@ export const DropdownWrapper = styled.div`
   width: 100%;
   border-radius: 5px;
   transition: all .2s ease;
+  display: flex;
+  align-items: center;
 }
 
 .Dropdown-control:hover {
@@ -63,6 +64,12 @@ export const DropdownWrapper = styled.div`
   to {
     height: auto;
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .Dropdown-control {
+    height: 4.8rem;
   }
 }
 

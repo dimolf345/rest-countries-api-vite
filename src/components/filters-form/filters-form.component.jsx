@@ -1,16 +1,16 @@
-import './filters-form.styles.scss'
 import {GoSearch} from 'react-icons/go'
-import { FormWrapper, SearchInput } from './filters-form.styles';
+import { FormWrapper, SearchInput, InputWrapper } from './filters-form.styles';
 import CustomDropdown from '../dropdown/dropdown.jsx';
 import {connect} from 'react-redux'
 import { createStructuredSelector } from 'reselect';
 import { selectSearch } from '../../redux/filters/filters.selector';
+import { themeSelector } from '../../redux/theme/theme.selector';
 import { searchCountry } from '../../redux/filters/filters.action';
 
-const FiltersForm = ({inputSearch, handleInputChange}) => {
+const FiltersForm = ({isThemeLight, handleInputChange}) => {
     return (
         <FormWrapper>
-            <div className="input-wrapper">
+            <InputWrapper isThemeLight={isThemeLight}>
             <GoSearch className="search-icon" size={'1.8em'}/>
             <SearchInput 
                 placeholder="Search for a country..."
@@ -18,7 +18,7 @@ const FiltersForm = ({inputSearch, handleInputChange}) => {
                 name="searchInput"
                 type="search" 
                 onChange={(e)=> handleInputChange(e.target.value)}/>
-            </div>
+            </InputWrapper>
             <CustomDropdown/>
         </FormWrapper>
     )
@@ -26,6 +26,7 @@ const FiltersForm = ({inputSearch, handleInputChange}) => {
 
 const mapStateToProps = createStructuredSelector({
     inputSearch: selectSearch,
+    isThemeLight: themeSelector
 })
 
 const mapDispatchToProps = dispatch => ({
