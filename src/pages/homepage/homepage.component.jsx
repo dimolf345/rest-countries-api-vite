@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import {connect} from 'react-redux'
 import {countriesFetchStartAsync} from '../../redux/countries/countries.action';
 import { createStructuredSelector } from "reselect";
@@ -20,6 +20,7 @@ class HomePage extends React.Component {
 
     componentDidMount(){
         const {countriesFetchStartAsync, countries} = this.props
+
         if(countries.length===0) countriesFetchStartAsync()
     }
 
@@ -70,6 +71,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
     countriesFetchStartAsync: ()=> dispatch(countriesFetchStartAsync()),
+
 })
 
 

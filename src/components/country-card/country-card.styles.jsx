@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 
 export const CardContainer = styled.div`
+
     width: 26.4rem;
     height: 33.6rem;
     border-radius: 5px;
@@ -29,7 +30,7 @@ export const CountryImage = styled.img`
     display: block;
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: fill;
 `
 
 export const WrapperLink = styled(Link)`
@@ -39,8 +40,8 @@ export const WrapperLink = styled(Link)`
 `
 
 export const CountryDetailsContainer = styled.div`
-height: 100%;
-
+    border-top: 1px solid lightgray;
+    height: 100%;
     padding: 2.4rem 2.4rem 0 2.4rem;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;

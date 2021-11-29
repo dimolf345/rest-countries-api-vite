@@ -7,7 +7,7 @@ import { selectSearch } from '../../redux/filters/filters.selector';
 import { themeSelector } from '../../redux/theme/theme.selector';
 import { searchCountry } from '../../redux/filters/filters.action';
 
-const FiltersForm = ({isThemeLight, handleInputChange}) => {
+const FiltersForm = ({isThemeLight, handleInputChange, inputSearch}) => {
     return (
         <FormWrapper>
             <InputWrapper isThemeLight={isThemeLight}>
@@ -17,6 +17,7 @@ const FiltersForm = ({isThemeLight, handleInputChange}) => {
                 className="search-input"
                 name="searchInput"
                 type="search" 
+                value={inputSearch}
                 onChange={(e)=> handleInputChange(e.target.value)}/>
             </InputWrapper>
             <CustomDropdown/>

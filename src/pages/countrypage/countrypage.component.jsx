@@ -4,37 +4,66 @@ import { selectCountriesCollection } from "../../redux/countries/countries.selec
 import { createStructuredSelector } from "reselect"
 import './countrypage.styles.scss'
 import ThemeButton from "../../components/button/button.component"
+import { CountryPageWrapper, CountryDetailsWrapper, FlagWrapper, TextContainer, CountryDetails } from "./countrypage.styles"
+import { themeSelector } from "../../redux/theme/theme.selector"
+import BorderList from "../../components/borders-list/border-list.component"
 
-const CountryPage = ({countries})=> {
+const CountryPage = ({countries, isThemeLight})=> {
     let params = useParams()
     let data  = getCountry(countries, params.countryId)
     console.log(data);
     return (
-        <div className="countrypage">
+        <CountryPageWrapper>
         <ThemeButton>
             <Link to="/">
             <span style={{fontSize: '1.5rem'}}>&larr; </span>
                 Back</Link>
         </ThemeButton>
-        <div className="country">
-            <div className="img-container">
+        <CountryDetailsWrapper>
+            <FlagWrapper>
                 <img 
-                    class="img"
-                    src={data.flag} alt="" />
-            </div>
-            <div className="details-container">
+                    className="img"
+                    src={data.flag} alt={`${data.name} flag`} />
+            </FlagWrapper>
+            <TextContainer isThemeLight={isThemeLight}>
                 <h2>{data.name}</h2>
-            </div>
-        </div>
-        </div>
+                <CountryDetails>
+                    <div>
+                    <p>Native Name: <span>{data.nativeName}</span></p>
+                    <p>Population: <span>{data.population}</span></p>
+                    <p>Region: <span>{data.region}</span></p>
+                    <p>Sub region: <span>{data.subregion}</span></p>
+                    <p>Capital: <span>{data.capital}</span></p>
+                    </div>
+                    <div>
+                        <p>Top Level Domain: <span>{data.topLevelDomain}</span></p>
+                        <p>Currencies: <span>{JoinCurrency(data.currencies)}</span></p>
+                    </div>
+                </CountryDetails>
+                    {data.borders?
+                       <BorderList countries={countries} bordersArray={data.borders}/>
+                    : <p>No borders</p>
+                    }
+            </TextContainer>
+        </CountryDetailsWrapper>
+        </CountryPageWrapper>
     )
+}
+
+
+const JoinCurrency = (currenciesArray) => {
+    return currenciesArray.reduce((joinedString, currency)=> joinedString.concat(", ", currency.name), "")
 }
 
 const getCountry = (countries, id) => countries.filter((country)=> country.alpha3Code == id)[0]
 
 
+
+
+
 const mapStateToProps = createStructuredSelector({
-    countries: selectCountriesCollection
+    countries: selectCountriesCollection,
+    isThemeLight: themeSelector,
 })
 
 export default connect(mapStateToProps)(CountryPage)
