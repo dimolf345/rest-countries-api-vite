@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import React, {useState, useEffect} from 'react'
 import { selectCountriesCollection } from "../../redux/countries/countries.selector"
 import { createStructuredSelector } from "reselect"
-import './countrypage.styles.scss'
 import ThemeButton from "../../components/button/button.component"
 import { CountryPageWrapper, CountryDetailsWrapper, FlagWrapper, TextContainer, CountryDetails } from "./countrypage.styles"
 import { themeSelector } from "../../redux/theme/theme.selector"
