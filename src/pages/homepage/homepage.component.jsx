@@ -49,11 +49,12 @@ class HomePage extends React.Component {
         const {errorMessage, countries, isFetching,} = this.props
 
         return(
-            <div style={{position: 'relative'}} className="homepage">
+            <div className="homepage">
                 <FiltersForm />
                 {isFetching &&  <Spinner />}
                 {errorMessage && <Navigate to="/error"/>}
                 <CountriesCollection 
+                    isFetching={isFetching}
                     isSearchInProgress = {this.isSearchInProgress()}
                     data={this.filterCountriesBySearch(this.filterCountriesByRegion(countries))}/>
             </div>

@@ -30,6 +30,7 @@ export const CountryDetailsWrapper = styled.div`
 `
 
 export const FlagWrapper = styled.div`
+    position: relative;
     width: 50%;
     max-width: 500px;
     margin-right: 4rem;

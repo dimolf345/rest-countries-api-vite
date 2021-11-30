@@ -2,15 +2,27 @@ import { CardContainer, ImageContainer, CountryImage, WrapperLink, CountryDetail
 import {connect} from 'react-redux'
 import { createStructuredSelector } from "reselect"
 import { themeSelector } from "../../redux/theme/theme.selector"
-
+import Spinner from "../spinner/spinner.component"
+import React, {useState, useEffect} from 'react'
 
 const CountryCard = ({country, isThemeLight}) => {
+    const [isLoading, setIsLoading] = useState(true)
+    const [image, setImage] = useState(null)
+    useEffect(()=> {
+        fetch(country.flag)
+        .then(response=> response.text())
+        .then(svg => {
+            setIsLoading(false)
+            return setImage(svg)
+            })
+    }, [])
     return (
         <CardContainer isThemeLight={isThemeLight}>
             <WrapperLink to={`/countries/${country.alpha3Code}`}>
-            <ImageContainer flag={country.flag} >
-                <CountryImage
-                    src={country.flag} alt={country.name + ' flag' } />
+            <ImageContainer >
+                {isLoading
+                ? <Spinner/>
+                : <CountryImage src={country.flag} alt={country.name + ' flag' } />}
             </ImageContainer>
             <CountryDetailsContainer >
                 <CountryHeading>{country.name}</CountryHeading>

@@ -20,7 +20,7 @@ export const CardContainer = styled.div`
 `
 
 export const ImageContainer = styled.div`
-
+    position: relative;
     height: 16rem;
 `
 

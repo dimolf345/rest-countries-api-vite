@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom"
 import {connect} from 'react-redux'
+import React, {useState, useEffect} from 'react'
 import { selectCountriesCollection } from "../../redux/countries/countries.selector"
 import { createStructuredSelector } from "reselect"
 import './countrypage.styles.scss'
@@ -7,11 +8,23 @@ import ThemeButton from "../../components/button/button.component"
 import { CountryPageWrapper, CountryDetailsWrapper, FlagWrapper, TextContainer, CountryDetails } from "./countrypage.styles"
 import { themeSelector } from "../../redux/theme/theme.selector"
 import BorderList from "../../components/borders-list/border-list.component"
+import Spinner from "../../components/spinner/spinner.component"
 
 const CountryPage = ({countries, isThemeLight})=> {
     let params = useParams()
     let data  = getCountry(countries, params.countryId)
-    console.log(data);
+    const [isLoading, setIsLoading] = useState(true)
+    const [image, setImage] = useState(null)
+    useEffect(()=> {
+        fetch(data.flag)
+        .then(response=> response.text())
+        .then(svg => {
+            setIsLoading(false)
+            return setImage(svg)
+            })
+    }, [])
+
+
     return (
         <CountryPageWrapper>
         <ThemeButton>
@@ -21,9 +34,14 @@ const CountryPage = ({countries, isThemeLight})=> {
         </ThemeButton>
         <CountryDetailsWrapper>
             <FlagWrapper>
-                <img 
+                {
+                isLoading
+                ? <Spinner />
+                : <img 
                     className="img"
                     src={data.flag} alt={`${data.name} flag`} />
+
+                }
             </FlagWrapper>
             <TextContainer isThemeLight={isThemeLight}>
                 <h2>{data.name}</h2>
@@ -51,8 +69,10 @@ const CountryPage = ({countries, isThemeLight})=> {
 }
 
 
+//Join currencies takes the array items and return a string with all currencies separated by commas. The substring deletes the first commas that is inserted otherwise
 const JoinCurrency = (currenciesArray) => {
-    return currenciesArray.reduce((joinedString, currency)=> joinedString.concat(", ", currency.name), "")
+    if (!currenciesArray) return <span>No currencies</span>
+    return currenciesArray.reduce((joinedString, currency)=> joinedString.concat(", ", currency.name), "").substring(2)
 }
 
 const getCountry = (countries, id) => countries.filter((country)=> country.alpha3Code == id)[0]

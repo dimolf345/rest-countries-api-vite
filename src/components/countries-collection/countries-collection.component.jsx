@@ -7,7 +7,7 @@ import CountryCard from '../country-card/country-card.component';
 
 
 
-const CountriesCollection = ({data, isSearchInProgress}) => {
+const CountriesCollection = ({data, isSearchInProgress, isFetching}) => {
         const [randomCountries, setRandomCountries] = useState([])
         useEffect(() => {
             setRandomCountries(selectRandomCountries(data, 20, isSearchInProgress))
@@ -23,7 +23,7 @@ const CountriesCollection = ({data, isSearchInProgress}) => {
             {randomCountries.map((country)=> <CountryCard key={country.alpha3Code} country={country}_/>)}
             </CountryCollectionContainer>
             <CountryButtonContainer>
-            <ThemeButton 
+            {!isFetching && <ThemeButton 
                 handleClick={()=>{
                 randomCountries.length===data.length
                 ?setRandomCountries(selectRandomCountries(data, 20))
@@ -32,7 +32,7 @@ const CountriesCollection = ({data, isSearchInProgress}) => {
                 randomCountries.length===data.length
                 ? "Show less"
                 : `Show all ${data.length} countries`
-            }</ThemeButton>
+            }</ThemeButton>}
             </CountryButtonContainer>
             </>
         )
