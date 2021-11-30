@@ -38,6 +38,7 @@ export const DropdownWrapper = styled.div`
   font-size: 1.4rem;
   border: 1px solid red;
   position: absolute;
+  z-index: 10;
   top: 110%;
   left: 0;
   width: 100%;

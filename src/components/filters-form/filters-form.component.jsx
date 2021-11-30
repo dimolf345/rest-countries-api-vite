@@ -1,6 +1,6 @@
 import {GoSearch} from 'react-icons/go'
 import { FormWrapper, SearchInput, InputWrapper } from './filters-form.styles';
-import CustomDropdown from '../dropdown/dropdown.jsx';
+import CustomDropdown from '../dropdown/dropdown.component.jsx';
 import {connect} from 'react-redux'
 import { createStructuredSelector } from 'reselect';
 import { selectSearch } from '../../redux/filters/filters.selector';
